@@ -6,13 +6,12 @@ import Link from "next/link";
 
 type DrawResult = {
   id: number
-  person_1: String
-  person_2: String
+  person_1: string
+  person_2: string
 }
 
 export default function Home() {
-  const router = useRouter();
-  const [peoples, setPeoples] = useState<String[]>([])
+  const [peoples, setPeoples] = useState<string[]>([])
   const [drawn, setDrawn] = useState<DrawResult[]>()
 
   function addingPerson(formData: FormData) {
@@ -37,7 +36,7 @@ export default function Home() {
     setDrawn(result)
   }
 
-  function shuffle(array: String[]) {
+  function shuffle(array: string[]) {
     const result = [...array]
     let currentIndex = result.length;
 
