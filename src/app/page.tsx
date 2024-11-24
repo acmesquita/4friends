@@ -1,99 +1,133 @@
+"use client";
 import Image from "next/image";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+type DrawResult = {
+  id: number
+  person_1: String
+  person_2: String
+}
 
 export default function Home() {
+  const router = useRouter();
+  const [peoples, setPeoples] = useState<String[]>([])
+  const [drawn, setDrawn] = useState<DrawResult[]>()
+
+  function addingPerson(formData: FormData) {
+    const person = formData.get("name");
+    if (person) {
+      setPeoples([...peoples, person.toString()])
+    }
+  }
+
+  function sort() {
+    console.log("Sorted...")
+    const result: DrawResult[] = []
+    const shufflePeoples = shuffle(peoples)
+
+    shufflePeoples.forEach((_, i) => {
+      result[i] = {
+        id: i,
+        person_1: shufflePeoples[i],
+        person_2: shufflePeoples[i + 1] || shufflePeoples[0]
+      }
+    })
+    setDrawn(result)
+  }
+
+  function shuffle(array: String[]) {
+    const result = [...array]
+    let currentIndex = result.length;
+
+    // While there remain elements to shuffle...
+    while (currentIndex != 0) {
+
+      // Pick a remaining element...
+      let randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [result[currentIndex], result[randomIndex]] = [
+        result[randomIndex], result[currentIndex]];
+    }
+
+    return result
+  }
+
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+      <h1 className="subpixel-antialiased font-bold tracking-wide text-blue-950 text-4xl">
+        <a href="/">4Friends</a>
+      </h1>
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+        <ul className="w-full h-72 overflow-auto">
+          {peoples && peoples.map((person, i) => <li key={i}>{person}</li>)}
+        </ul>
+        <form className="w-full max-w-sm" action={addingPerson}>
+          <div className="flex items-center border-b border-blue-900 py-2">
+            <input autoFocus id="name" name="name" className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Jane Doe" aria-label="Full name" />
+            <button type="submit" className="flex-shrink-0 bg-blue-900 hover:bg-blue-700 border-blue-900 hover:border-blue-700 text-sm border-4 text-white py-1 px-2 rounded">
+              Add
+            </button>
+          </div>
+          <p className="text-sm text-gray-500 pt-2">Adding 3 or more person and go...</p>
+        </form>
+        {peoples.length > 2 && (
+          <button onClick={sort} className="flex-shrink-0 bg-green-900 hover:bg-green-700 border-green-900 hover:border-green-700 text-md border-4 text-white w-full px-3 rounded">
+            Sort
+          </button>
+        )}
+        {drawn && (
+          drawn.map((drawn_result) => {
+            const params = new URLSearchParams();
+            params.set("person_1", drawn_result.person_1.toString());
+            params.set("person_2", drawn_result.person_2.toString());
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+            
+
+            return (
+              <button
+                className="flex items-center gap-2 hover:underline hover:underline-offset-4 text-gray-700 text-sm"
+                key={drawn_result.id}
+                onClick={() => {
+                  navigator.share({
+                    title: 'Web Share API Draft',
+                    text: 'Take a look at this spec!',
+                    url: "/result?" + params.toString(),
+                  })
+                  .then(() => console.log('Successful share'))
+                  .catch((error) => console.log('Error sharing', error));
+                }}
+              >
+                <Image
+                  aria-hidden
+                  src="/file.svg"
+                  alt="File icon"
+                  width={16}
+                  height={16}
+                />
+                {drawn_result.person_1}
+              </button>
+            )
+          })
+        )}
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
         <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+          className="flex items-center gap-2 hover:underline hover:underline-offset-4 text-gray-700 text-sm"
+          href="https://github.com/acmesquita"
           target="_blank"
           rel="noopener noreferrer"
         >
           <Image
             aria-hidden
             src="/window.svg"
-            alt="Window icon"
+            alt="File icon"
             width={16}
             height={16}
           />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
+          Criado por Catharina Mesquida
         </a>
       </footer>
     </div>
