@@ -3,11 +3,12 @@
 import { redirect, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from 'react'
 
 
-export default function Page() {
+function Result() {
   const searchParams = useSearchParams();
-
+  
   if(!searchParams.get("person_1")) {
     redirect("/")
   }
@@ -47,5 +48,14 @@ export default function Page() {
         </Link>
       </footer>
     </div>
+  )
+  
+}
+
+export default function Page() {
+  return (
+    <Suspense>
+      <Result />
+    </Suspense>
   );
 }
