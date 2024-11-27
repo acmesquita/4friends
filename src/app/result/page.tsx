@@ -9,7 +9,7 @@ import { Suspense } from 'react'
 function Result() {
   const searchParams = useSearchParams();
   
-  if(!searchParams.get("person_1")) {
+  if(!searchParams.get("person")) {
     redirect("/")
   }
 
@@ -21,11 +21,11 @@ function Result() {
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         {searchParams && (
           <div className="flex flex-col justify-center items-center">
-            <p>{searchParams.get("person_1")} your friends is</p>
+            <p>{searchParams.get("person")} your friends is</p>
             <h2
               className="font-semibold text-4xl text-blue-950"
             >
-              {searchParams.get("person_2")}
+              {searchParams.get("friend")}
             </h2>
           </div>
         )}

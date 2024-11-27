@@ -2,11 +2,12 @@
 import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
+import { Utils } from "@/utils";
 
 type DrawResult = {
   id: number
-  person_1: string
-  person_2: string
+  person: string
+  friend: string
 }
 
 export default function Home() {
@@ -23,35 +24,16 @@ export default function Home() {
   function sort() {
     console.log("Sorted...")
     const result: DrawResult[] = []
-    const shufflePeoples = shuffle(peoples)
+    const shufflePeoples = Utils.shuffle(peoples)
 
     shufflePeoples.forEach((_, i) => {
       result[i] = {
         id: i,
-        person_1: shufflePeoples[i],
-        person_2: shufflePeoples[i + 1] || shufflePeoples[0]
+        person: shufflePeoples[i],
+        friend: shufflePeoples[i + 1] || shufflePeoples[0]
       }
     })
     setDrawn(result)
-  }
-
-  function shuffle(array: string[]) {
-    const result = [...array]
-    let currentIndex = result.length;
-
-    // While there remain elements to shuffle...
-    while (currentIndex != 0) {
-
-      // Pick a remaining element...
-      const randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-
-      // And swap it with the current element.
-      [result[currentIndex], result[randomIndex]] = [
-        result[randomIndex], result[currentIndex]];
-    }
-
-    return result
   }
 
   return (
@@ -80,10 +62,8 @@ export default function Home() {
         {drawn && (
           drawn.map((drawn_result) => {
             const params = new URLSearchParams();
-            params.set("person_1", drawn_result.person_1.toString());
-            params.set("person_2", drawn_result.person_2.toString());
-
-            
+            params.set("person", drawn_result.person.toString());
+            params.set("friend", drawn_result.friend.toString());
 
             return (
               <button
@@ -106,7 +86,7 @@ export default function Home() {
                   width={16}
                   height={16}
                 />
-                {drawn_result.person_1}
+                {drawn_result.person}
               </button>
             )
           })
