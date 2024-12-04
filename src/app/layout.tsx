@@ -30,16 +30,28 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+        <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-8 sm:p-20 font-[family-name:var(--font-geist-sans)]">
           <h1 className="subpixel-antialiased font-bold tracking-wide text-green-950 text-4xl">
             <Link href="/">4Friends</Link>
           </h1>
-          <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+          <main className="flex flex-col gap-4 row-start-2 items-center sm:items-start">
+            <p className="text-green-700 text-md w-72 text-center">
+              Want to do a simple Secret Friend giveaway without having to log in?
+            </p>
+            <p className="text-green-700 text-md w-72 text-center">
+              This is the site for you!
+            </p>
+            <p className="text-green-700 text-md w-72 text-center">
+              Just add the list of friends who will participate and draw. Each participant will receive a link with the friend they picked.
+            </p>
+            <p className="text-green-700 text-md w-72 text-center">
+              Try it out! 🎉
+            </p>
             {children}
           </main>
           <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
             <Link
-              className="flex items-center gap-2 hover:underline hover:underline-offset-4 text-gray-700 text-sm"
+              className="flex items-center gap-2 hover:underline hover:underline-offset-4 text-gray-700 text-xs"
               href="https://github.com/acmesquita"
               target="_blank"
               rel="noopener noreferrer"
