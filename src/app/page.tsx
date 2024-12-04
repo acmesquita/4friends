@@ -1,18 +1,11 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import Link from "next/link";
-import { Utils } from "@/utils";
-
-type DrawResult = {
-  id: number
-  person: string
-  friend: string
-}
+import { SecretFriend, DrawnResult } from "@/services/secret_friend";
 
 export default function Home() {
   const [peoples, setPeoples] = useState<string[]>([])
-  const [drawn, setDrawn] = useState<DrawResult[]>()
+  const [drawn, setDrawn] = useState<DrawnResult[]>()
 
   function addingPerson(formData: FormData) {
     const person = formData.get("name");
@@ -22,23 +15,14 @@ export default function Home() {
   }
 
   function sort() {
-    console.log("Sorted...")
-    const result: DrawResult[] = []
-    const shufflePeoples = Utils.shuffle(peoples)
-
-    shufflePeoples.forEach((_, i) => {
-      result[i] = {
-        id: i,
-        person: shufflePeoples[i],
-        friend: shufflePeoples[i + 1] || shufflePeoples[0]
-      }
-    })
+    const result = SecretFriend.sort(peoples)
+    console.log(result)
     setDrawn(result)
   }
 
   return (
     <>
-      <ul className="w-full h-72 overflow-auto">
+      <ul className="w-full h-72 overflow-auto bg-slate-100 p-2 rounded-md">
         {peoples && peoples.map((person, i) => <li key={i}>{person}</li>)}
       </ul>
       <form className="w-full max-w-sm" action={addingPerson}>
@@ -57,19 +41,15 @@ export default function Home() {
       )}
       {drawn && (
         drawn.map((drawn_result) => {
-          const params = new URLSearchParams();
-          params.set("person", drawn_result.person.toString());
-          params.set("friend", drawn_result.friend.toString());
-
           return (
             <button
               className="flex items-center gap-2 hover:underline hover:underline-offset-4 text-gray-700 text-sm"
               key={drawn_result.id}
               onClick={() => {
                 navigator.share({
-                  title: 'Web Share API Draft',
-                  text: 'Take a look at this spec!',
-                  url: "/result?" + params.toString(),
+                  title: '4Friends',
+                  text: 'Descubra quem será o seu amigo secreto',
+                  url: drawn_result.short_url
                 })
                   .then(() => console.log('Successful share'))
                   .catch((error) => console.log('Error sharing', error));
@@ -77,7 +57,7 @@ export default function Home() {
             >
               <Image
                 aria-hidden
-                src="/file.svg"
+                src="/whatsapp.svg"
                 alt="File icon"
                 width={16}
                 height={16}
