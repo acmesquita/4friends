@@ -21,7 +21,7 @@ function Result() {
         <div className="flex flex-col justify-center items-center">
           <p>{drawnResult.person} your friends is</p>
           <h2
-            className="font-semibold text-4xl text-blue-950"
+            className="font-semibold text-3xl text-green-950"
           >
             {drawnResult.friend}
           </h2>

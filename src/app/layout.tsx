@@ -31,7 +31,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-          <h1 className="subpixel-antialiased font-bold tracking-wide text-blue-950 text-4xl">
+          <h1 className="subpixel-antialiased font-bold tracking-wide text-green-950 text-4xl">
             <Link href="/">4Friends</Link>
           </h1>
           <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
@@ -51,7 +51,7 @@ export default function RootLayout({
                 width={16}
                 height={16}
               />
-              Criado por Catharina Mesquida
+              Create by Catharina Mesquida
             </Link>
           </footer>
         </div>
