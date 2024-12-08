@@ -16,7 +16,6 @@ export default function Home() {
 
   function sort() {
     const result = SecretFriend.sort(peoples)
-    console.log(result)
     setDrawn(result)
   }
 
