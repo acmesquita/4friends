@@ -18,16 +18,19 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "4Friends",
   description: "Giveaway generator for secret friends",
+  metadataBase: new URL('https://4friends-eight.vercel.app/'),
   twitter: {
     card: "summary",
     title: "4Friends",
-    description: "Giveaway generator for secret friends"
+    description: "Giveaway generator for secret friends",
+    images: "/quatro.png"
   },
   openGraph: {
     siteName: "https://4friends-eight.vercel.app/",
     title: "4Friends",
     description: "Giveaway generator for secret friends",
-    url: "https://4friends-eight.vercel.app/"
+    url: "https://4friends-eight.vercel.app/",
+    images: "/quatro.png"
   }
 };
 
