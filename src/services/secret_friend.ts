@@ -66,6 +66,3 @@ export class SecretFriend {
   }
 }
 
-function sort_alphabetic(result: DrawnResult[]): DrawnResult[] {
-  throw new Error("Function not implemented.")
-}
