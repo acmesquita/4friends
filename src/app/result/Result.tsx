@@ -26,7 +26,7 @@ export function Result() {
     <>
       {drawnResult && (
         <div className="flex flex-col justify-center items-center">
-          <p>{drawnResult.person} your friends is</p>
+          <p>{drawnResult.person} seu amigo oculto é</p>
           <h2
             className="font-semibold text-3xl text-green-950"
           >

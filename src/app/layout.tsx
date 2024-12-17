@@ -23,14 +23,14 @@ export const metadata: Metadata = {
     card: "summary",
     title: "4Friends",
     description: "Giveaway generator for secret friends",
-    images: "/quatro.png"
+    images: "/gift.png"
   },
   openGraph: {
     siteName: "https://4friends-eight.vercel.app/",
     title: "4Friends",
     description: "Giveaway generator for secret friends",
     url: "https://4friends-eight.vercel.app/",
-    images: "/quatro.png"
+    images: "/gift.png"
   }
 };
 
@@ -50,17 +50,20 @@ export default function RootLayout({
           </h1>
           <main className="flex flex-col gap-4 row-start-2 items-center sm:items-start">
             <p className="text-green-700 text-md w-72 text-center">
-              Want to do a simple Secret Friend giveaway without having to log in?
+              Você gostaria de fazer o sorteio do seu Amigo Oculto sem precisar de email?
+              <br/><b>Esse site é para você!</b>
             </p>
-            <p className="text-green-700 text-md w-72 text-center">
-              This is the site for you!
-            </p>
-            <p className="text-green-700 text-md w-72 text-center">
-              Just add the list of friends who will participate and draw. Each participant will receive a link with the friend they picked.
-            </p>
-            <p className="text-green-700 text-md w-72 text-center">
-              Try it out! 🎉
-            </p>
+            <ul>
+              <ol className="text-green-700 text-md w-72 text-center">
+                1. Basta adicionar o nome dos amigos que irão participar e sortear.
+              </ol>
+              <ol className="text-green-700 text-md w-72 text-center">
+                2. Após o sorteio, cada nome se tornará um link que você pode enviar para o amigo e assim ele irá saber que ele tirou.
+              </ol>
+              <ol className="text-green-700 text-md w-72 text-center">
+                Experimente! 🎉
+              </ol>
+            </ul>
             {children}
           </main>
           <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
@@ -77,7 +80,7 @@ export default function RootLayout({
                 width={16}
                 height={16}
               />
-              Create by Catharina Mesquida
+              Criação de Catharina Mesquida
             </Link>
           </footer>
         </div>

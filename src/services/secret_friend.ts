@@ -36,7 +36,7 @@ export class SecretFriend {
       result[i] = drawn_result
     })
 
-		return result
+		return SecretFriend.sort_alphabetic(result)
 	}
 
 	static generate_short_url(person: string, friend: string): string {
@@ -52,4 +52,20 @@ export class SecretFriend {
       friend: drawn_result_decoded.friend || '',
     }
   }
+
+  static sort_alphabetic(list: DrawnResult[]): DrawnResult[] {
+    return list.sort(function(a, b) {
+      if ( a.person < b.person ){
+        return -1;
+      }
+      if ( a.person > b.person ){
+        return 1;
+      }
+      return 0;
+    });
+  }
+}
+
+function sort_alphabetic(result: DrawnResult[]): DrawnResult[] {
+  throw new Error("Function not implemented.")
 }
