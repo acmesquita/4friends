@@ -49,21 +49,6 @@ export default function RootLayout({
             <Link href="/">4Friends</Link>
           </h1>
           <main className="flex flex-col gap-4 row-start-2 items-center sm:items-start">
-            <p className="text-green-700 text-md w-72 text-center">
-              Você gostaria de fazer o sorteio do seu Amigo Oculto sem precisar de email?
-              <br/><b>Esse site é para você!</b>
-            </p>
-            <ul>
-              <ol className="text-green-700 text-md w-72 text-center">
-                1. Basta adicionar o nome dos amigos que irão participar e sortear.
-              </ol>
-              <ol className="text-green-700 text-md w-72 text-center">
-                2. Após o sorteio, cada nome se tornará um link que você pode enviar para o amigo e assim ele irá saber que ele tirou.
-              </ol>
-              <ol className="text-green-700 text-md w-72 text-center">
-                Experimente! 🎉
-              </ol>
-            </ul>
             {children}
           </main>
           <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
