@@ -23,21 +23,21 @@ export default function Home() {
 
   return (
     <>
-      <p className="text-green-700 text-md w-72 text-center">
+      <p className="text-green-700 text-md w-80 text-center">
         Você gostaria de fazer o sorteio do seu Amigo Oculto sem precisar de email?
         <br /><b>Esse site é para você!</b>
       </p>
       <ul>
-        <ol className="text-green-700 text-md w-72 text-center">
+        <ol className="text-green-700 text-md w-80 text-center">
           1. Basta adicionar o nome dos amigos que irão participar e sortear.
         </ol>
-        <ol className="text-green-700 text-md w-72 text-center">
+        <ol className="text-green-700 text-md w-80 text-center">
           2. Após o sorteio, cada nome se tornará um link que você pode enviar para o amigo e assim ele irá saber que ele tirou.
         </ol>
-        <ol className="text-green-700 text-md w-72 text-center">
+        <ol className="text-green-700 text-md w-80 text-center">
           Experimente! 🎉
         </ol>
-        <ol className="text-green-700 font-semibold text-xs w-72 text-center">
+        <ol className="text-green-700 font-semibold text-xs w-80 text-center">
           (Todos os acentos serão removidos para garantir o funcionamento)
         </ol>
       </ul>
