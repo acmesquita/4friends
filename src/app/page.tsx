@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { SecretFriend, DrawnResult } from "@/services/secret_friend";
+import { Utils } from "@/utils"
 
 export default function Home() {
   const [peoples, setPeoples] = useState<string[]>([])
@@ -10,7 +11,8 @@ export default function Home() {
   function addingPerson(formData: FormData) {
     const person = formData.get("name");
     if (person) {
-      setPeoples([...peoples, person.toString()])
+      const person_normalize = Utils.nomalize(person.toString())
+      setPeoples([...peoples, person_normalize])
     }
   }
 
@@ -34,6 +36,9 @@ export default function Home() {
         </ol>
         <ol className="text-green-700 text-md w-72 text-center">
           Experimente! 🎉
+        </ol>
+        <ol className="text-green-700 font-semibold text-xs w-72 text-center">
+          (Todos os acentos serão removidos para garantir o funcionamento)
         </ol>
       </ul>
       <ul className="w-full h-72 overflow-auto bg-yellow-100 p-2 rounded-md">
